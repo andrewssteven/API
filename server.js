@@ -6,7 +6,7 @@ const User = require('./models/User');
 // Load environment variables
 dotenv.config();
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 7000;
 
 // Middleware
 app.use(express.json());
@@ -23,7 +23,7 @@ mongoose.connect(process.env.MONGO_URI, {
 
 // GET - Return all users
 // Root route - Return all users
-app.get('/', async (req, res) => {
+app.get('/users', async (req, res) => {
   try {
     const users = await User.find();
     res.status(200).json(users);
@@ -33,7 +33,7 @@ app.get('/', async (req, res) => {
 });
 
 // POST - Add a new user
-app.post('/users', async (req, res) => {
+app.post('/users:id', async (req, res) => {
   try {
     const newUser = new User(req.body);
     const savedUser = await newUser.save();
